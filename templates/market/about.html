@@ -1,0 +1,211 @@
+{% extends "market/base.html" %}
+{% block content %}
+
+<style>
+  .about-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 60px 40px;
+    border-radius: 16px;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .about-header h1 {
+    font-size: 42px;
+    font-weight: 800;
+    margin: 0 0 16px 0;
+  }
+
+  .about-header p {
+    font-size: 18px;
+    margin: 0;
+    opacity: 0.95;
+  }
+
+  .about-content {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section {
+    background: white;
+    padding: 40px;
+    margin-bottom: 30px;
+    border-radius: 12px;
+    border: 1px solid #eef2ff;
+  }
+
+  .section h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 16px 0;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section p {
+    color: #6b7280;
+    line-height: 1.8;
+    margin: 0 0 12px 0;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+    margin-top: 30px;
+  }
+
+  .feature-card {
+    background: linear-gradient(135deg, #f0fdf4 0%, #f0f9ff 100%);
+    padding: 24px;
+    border-radius: 10px;
+    border: 1px solid #c6f6d5;
+  }
+
+  .feature-card h3 {
+    margin: 0 0 12px 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .feature-card p {
+    margin: 0;
+    color: #6b7280;
+  }
+
+  .cta-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px;
+    border-radius: 12px;
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .cta-section h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 16px 0;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .about-header {
+      padding: 40px 20px;
+    }
+
+    .about-header h1 {
+      font-size: 28px;
+    }
+
+    .section {
+      padding: 24px;
+    }
+
+    .section h2 {
+      font-size: 22px;
+    }
+  }
+</style>
+
+<div class="about-header">
+  <h1>Sobre o FeiraDoMês</h1>
+  <p>Simplificando a forma como você gerencia suas compras</p>
+</div>
+
+<div class="about-content">
+  <div class="section">
+    <h2>Nossa Missão</h2>
+    <p>
+      O FeiraDoMês é uma aplicação web desenvolvida para simplificar e organizar suas compras de forma rápida e intuitiva.
+      Entendemos que gerenciar listas de compras pode ser desafiador, especialmente quando você precisa coordenar múltiplos itens,
+      quantidades e unidades diferentes.
+    </p>
+    <p>
+      Nossa missão é fornecer uma ferramenta simples, eficiente e acessível para que você nunca mais esqueça de um item na sua
+      lista de compras.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Por que usar o FeiraDoMês?</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <h3>Organizado</h3>
+        <p>Mantenha todas as suas compras em um único lugar, fácil de acessar a qualquer momento.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Rápido</h3>
+        <p>Adicione, edite e gerencie itens em poucos segundos, sem complicações.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Responsivo</h3>
+        <p>Acesse no seu celular, tablet ou computador, sempre sincronizado.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Seguro</h3>
+        <p>Seus dados são protegidos e apenas você tem acesso à sua lista de compras.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Controle</h3>
+        <p>Marque itens como comprados e acompanhe seu progresso.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Notas</h3>
+        <p>Adicione notas aos seus itens para lembretes importantes ou detalhes específicos.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Como Começar</h2>
+    <p><strong>1. Criar uma Conta:</strong> Registre-se com seu email e crie uma senha segura.</p>
+    <p><strong>2. Adicionar Itens:</strong> Comece adicionando os produtos que precisa comprar.</p>
+    <p><strong>3. Gerenciar:</strong> Edite quantidades, unidades e adicione notas conforme necessário.</p>
+    <p><strong>4. Monitorar:</strong> Marque itens como comprados conforme você adquire os produtos.</p>
+  </div>
+
+  <div class="section">
+    <h2>Dicas</h2>
+    <p>
+      <strong>Controle de orçamento:</strong> Use as notas para adicionar preços estimados aos itens.
+    </p>
+    <p>
+      <strong>Listas por categoria:</strong> Organize seus itens nomeando-os estrategicamente (Ex: "Frutas - Maçã", "Verduras - Alface").
+    </p>
+    <p>
+      <strong>Acompanhamento:</strong> Marque itens como comprados para acompanhar seu progresso.
+    </p>
+  </div>
+
+  <div class="cta-section">
+    <h3>Pronto para começar?</h3>
+    {% if user.is_authenticated %}
+      <p>Vá para sua lista de compras e comece agora!</p>
+      <div class="cta-buttons">
+        <a href="{% url 'market:item_list' %}" class="btn btn-primary">Minha Lista</a>
+        <a href="{% url 'market:item_create' %}" class="btn btn-outline">Novo Item</a>
+      </div>
+    {% else %}
+      <p>Crie uma conta agora e comece a organizar suas compras!</p>
+      <div class="cta-buttons">
+        <a href="{% url 'accounts:register' %}" class="btn btn-primary">Criar Conta</a>
+        <a href="{% url 'accounts:login' %}" class="btn btn-outline">Fazer Login</a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

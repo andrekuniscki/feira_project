@@ -1,0 +1,257 @@
+{% extends "market/base.html" %}
+{% block content %}
+
+<style>
+  .detail-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .detail-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px;
+    border-radius: 12px 12px 0 0;
+    margin-bottom: 0;
+  }
+
+  .detail-header h1 {
+    margin: 0 0 10px 0;
+    font-size: 32px;
+    font-weight: 700;
+  }
+
+  .detail-header .item-owner {
+    font-size: 14px;
+    opacity: 0.95;
+    margin: 0;
+  }
+
+  .detail-card {
+    background: white;
+    border: 1px solid #eef2ff;
+    border-radius: 0 0 12px 12px;
+    padding: 40px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .detail-section {
+    margin-bottom: 32px;
+  }
+
+  .detail-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .section-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #667eea;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .info-box {
+    background: #f8fafc;
+    border: 1px solid #eef2ff;
+    border-radius: 8px;
+    padding: 16px;
+    transition: all 0.3s ease;
+  }
+
+  .info-box:hover {
+    border-color: #667eea;
+    background: #fcfeff;
+  }
+
+  .info-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+
+  .info-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  .status-badge.bought {
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #bbf7d0;
+  }
+
+  .status-badge.pending {
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fcd34d;
+  }
+
+  .notes-box {
+    background: #f8fafc;
+    border: 1px solid #eef2ff;
+    border-left: 4px solid #667eea;
+    border-radius: 8px;
+    padding: 16px;
+    color: #374151;
+    white-space: pre-wrap;
+    word-break: break-word;
+    min-height: 80px;
+    line-height: 1.6;
+  }
+
+  .detail-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 32px;
+    padding-top: 32px;
+    border-top: 1px solid #eef2ff;
+  }
+
+  .btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 14px;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+  }
+
+  .btn-secondary {
+    background: #f3f4f6;
+    color: #374151;
+    border: 1px solid #eef2ff;
+  }
+
+  .btn-secondary:hover {
+    background: #e5e7eb;
+  }
+
+  .metadata {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #eef2ff;
+  }
+
+  @media (max-width: 640px) {
+    .detail-header {
+      padding: 30px 20px;
+    }
+
+    .detail-header h1 {
+      font-size: 24px;
+    }
+
+    .detail-card {
+      padding: 24px;
+    }
+
+    .info-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .detail-actions {
+      flex-direction: column;
+    }
+
+    .btn {
+      width: 100%;
+    }
+  }
+</style>
+<div class="detail-container">
+  <div class="detail-header">
+    <h1>{{ object.name }}</h1>
+    <p class="item-owner">Item criado por você</p>
+  </div>
+  <div class="detail-card">
+    <div class="detail-section">
+      <h2 class="section-title">Detalhes do Item</h2>
+      <div class="info-grid">
+        <div class="info-box">
+          <span class="info-label">Quantidade</span>
+          <div class="info-value">{{ object.quantity }} {{ object.unit }}</div>
+        </div>
+        <div class="info-box">
+          <span class="info-label">Status</span>
+          <div class="info-value">
+            {% if object.bought %}
+              <span class="status-badge bought">Comprado</span>
+            {% else %}
+              <span class="status-badge pending">Pendente</span>
+            {% endif %}
+          </div>
+        </div>
+        <div class="info-box">
+          <span class="info-label">Data de Criação</span>
+          <div class="info-value" style="font-size: 14px;">
+            {{ object.created_at|date:"d/m/Y H:i" }}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% if object.notes %}
+      <div class="detail-section">
+        <h2 class="section-title">Notas</h2>
+        <div class="notes-box">{{ object.notes }}</div>
+      </div>
+    {% endif %}
+
+    <div class="detail-actions">
+      <a href="{% url 'market:item_edit' object.pk %}" class="btn btn-primary">
+        Editar Item
+      </a>
+      <a href="{% url 'market:item_list' %}" class="btn btn-secondary">
+        Voltar aos Itens
+      </a>
+    </div>
+    <div class="metadata">
+      <strong>ID:</strong> #{{ object.pk }} • 
+      <strong>Proprietário:</strong> {{ object.owner.username }}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

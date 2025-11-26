@@ -1,0 +1,431 @@
+{% extends "market/base.html" %}
+{% block content %}
+
+<style>
+  .items-container {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .items-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .items-header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .filter-section {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #eef2ff;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  .filter-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #667eea;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .filters-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    padding: 8px 16px;
+    border: 2px solid #e5e9f2;
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.3s ease;
+    color: #374151;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .filter-btn.active {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+  }
+
+  .filter-btn:hover {
+    border-color: #667eea;
+    color: #667eea;
+  }
+
+  .filter-btn.active:hover {
+    background: #5568d3;
+  }
+
+  /* Totalizador */
+  .totalizador {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 24px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .total-box {
+    text-align: center;
+  }
+
+  .total-label {
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+
+  .total-value {
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  /* Items container */
+  .items-section {
+    margin-bottom: 32px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #eef2ff;
+  }
+
+  .section-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .section-count {
+    background: #667eea;
+    color: white;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+
+  .item-card {
+    background: white;
+    border: 2px solid #eef2ff;
+    border-radius: 12px;
+    padding: 16px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .item-card:hover {
+    border-color: #667eea;
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.1);
+    transform: translateY(-4px);
+  }
+
+  .item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 12px;
+  }
+
+  .item-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
+  }
+
+  .item-category {
+    display: inline-block;
+    background: #f3f4f6;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #667eea;
+    margin-top: 4px;
+  }
+
+  .item-status {
+    font-size: 20px;
+  }
+
+  .item-details {
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+
+  .item-details strong {
+    color: #0f172a;
+  }
+
+  .item-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #667eea;
+    margin-bottom: 12px;
+  }
+
+  .item-notes {
+    background: #f9fafb;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 12px;
+    border-left: 3px solid #667eea;
+  }
+
+  .item-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .item-btn {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .item-btn-view {
+    background: #667eea;
+    color: white;
+  }
+
+  .item-btn-view:hover {
+    background: #5568d3;
+  }
+
+  .item-btn-edit {
+    background: #f3f4f6;
+    color: #374151;
+  }
+
+  .item-btn-edit:hover {
+    background: #e5e7eb;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #6b7280;
+  }
+
+  .empty-state h3 {
+    margin: 0 0 10px 0;
+    color: #0f172a;
+  }
+
+  .add-item-btn {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 10px 20px;
+    background: #667eea;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .add-item-btn:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    .items-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .totalizador {
+      grid-template-columns: 1fr;
+    }
+
+    .items-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>
+
+<div class="items-container">
+  <div class="items-header">
+    <h1>Minhas Compras</h1>
+    <a href="{% url 'market:item_create' %}" class="btn btn-primary">Novo Item</a>
+  </div>
+
+  <div class="filter-section">
+    <span class="filter-title">Filtrar por:</span>
+    <div class="filters-row">
+      <a href="{% url 'market:item_list' %}" class="filter-btn {% if not selected_status %}active{% endif %}">Todos</a>
+      <a href="?status=pending" class="filter-btn {% if selected_status == 'pending' %}active{% endif %}">Pendentes</a>
+      <a href="?status=bought" class="filter-btn {% if selected_status == 'bought' %}active{% endif %}">Comprados</a>
+      <a href="?favorites=true" class="filter-btn">Favoritos</a>
+    </div>
+  </div>
+
+  {% if categories %}
+    <div class="filter-section">
+      <span class="filter-title">Categorias:</span>
+      <div class="filters-row">
+        <a href="{% url 'market:item_list' %}" class="filter-btn {% if not selected_category %}active{% endif %}">Todas</a>
+        {% for category in categories %}
+          <a href="?category={{ category.id }}" class="filter-btn {% if selected_category == category.id|stringformat:'s' %}active{% endif %}">
+            {{ category.name }}
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="totalizador">
+    <div class="total-box">
+      <div class="total-label">Total Geral</div>
+      <div class="total-value">R$ {{ total_all|floatformat:2 }}</div>
+    </div>
+    <div class="total-box">
+      <div class="total-label">Pendente</div>
+      <div class="total-value">R$ {{ total_pending|floatformat:2 }}</div>
+    </div>
+    <div class="total-box">
+      <div class="total-label">Comprado</div>
+      <div class="total-value">R$ {{ total_bought|floatformat:2 }}</div>
+    </div>
+    <div class="total-box">
+      <div class="total-label">Quantidade</div>
+      <div class="total-value">{{ pending_count|add:bought_count }} itens</div>
+    </div>
+  </div>
+
+  {% if pending_items %}
+    <div class="items-section">
+      <div class="section-header">
+        <h2>Pendentes</h2>
+        <span class="section-count">{{ pending_count }}</span>
+      </div>
+      <div class="items-grid">
+        {% for item in pending_items %}
+          <div class="item-card">
+            <div class="item-header">
+              <div>
+                <p class="item-name">{{ item.name }}</p>
+                {% if item.category %}
+                  <div class="item-category">{{ item.category.icon }} {{ item.category.name }}</div>
+                {% endif %}
+              </div>
+              <div class="item-status">—</div>
+            </div>
+            <div class="item-details">
+              <strong>{{ item.quantity }} {{ item.unit }}</strong> • 
+              {% if item.is_favorite %}Favorito{% endif %}
+            </div>
+            {% if item.price %}
+              <div class="item-price">R$ {{ item.get_total|floatformat:2 }}</div>
+            {% endif %}
+            {% if item.notes %}
+              <div class="item-notes">{{ item.notes|truncatewords:20 }}</div>
+            {% endif %}
+            <div class="item-actions">
+              <a href="{% url 'market:item_detail' item.pk %}" class="item-action">Ver</a>
+              <a href="{% url 'market:item_edit' item.pk %}" class="item-action">Editar</a>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  {% if bought_items %}
+    <div class="items-section">
+      <div class="section-header">
+        <h2>Comprados</h2>
+        <span class="section-count">{{ bought_count }}</span>
+      </div>
+      <div class="items-grid">
+        {% for item in bought_items %}
+          <div class="item-card" style="opacity: 0.7;">
+            <div class="item-header">
+              <div>
+                <p class="item-name" style="text-decoration: line-through;">{{ item.name }}</p>
+                {% if item.category %}
+                  <div class="item-category">{{ item.category.icon }} {{ item.category.name }}</div>
+                {% endif %}
+              </div>
+              <div class="item-status">✓</div>
+            </div>
+            <div class="item-details">
+              <strong>{{ item.quantity }} {{ item.unit }}</strong> • 
+              {% if item.is_favorite %}Favorito{% endif %}
+            </div>
+            {% if item.price %}
+              <div class="item-price">R$ {{ item.get_total|floatformat:2 }}</div>
+            {% endif %}
+            <div class="item-actions">
+              <a href="{% url 'market:item_edit' item.pk %}" class="item-btn item-btn-edit">Editar</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  {% if not pending_items and not bought_items %}
+    <div class="empty-state">
+      <h3>Nenhum item encontrado</h3>
+      <p>Comece adicionando seus itens para a compra</p>
+      <a href="{% url 'market:item_create' %}" class="add-item-btn">Adicionar Item</a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
